@@ -1,0 +1,24 @@
+sns, sqs, s3 policy (paste in sqs)
+{
+  "Version": "2012-10-17",
+  "Id": "example-ID",
+  "Statement": [
+    {
+      "Sid": "AllowS3ToPublishToSNS",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "SNS:Publish",
+      "Resource": "arn:aws:sns:ap-southeast-2:404147232814:top",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:s3:::YOUR_BUCKET_NAME"
+        },
+        "StringEquals": {
+          "aws:SourceAccount": "404147232814"
+        }
+      }
+    }
+  ]  
+}
